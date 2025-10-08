@@ -1,0 +1,35 @@
+
+# Ignore build and intermediate files
+Binaries/
+DerivedDataCache/
+Intermediate/
+Saved/
+.vscode/
+.idea/
+.cache/
+
+# Ignore user-specific files
+*.sln
+*.suo
+*.opensdf
+*.sdf
+*.VC.db
+*.VC.opendb
+
+# Ignore backup files
+*.tmp
+*.log
+*.vs
+*.pdb
+*.obj
+
+# Ignore local project settings
+*.xcodeproj
+*.xcworkspace
+*.vsconfig
+*.user
+*.userprefs
+
+# Ignore system files
+.DS_Store
+Thumbs.db
