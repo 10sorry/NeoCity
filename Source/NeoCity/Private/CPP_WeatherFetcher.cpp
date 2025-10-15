@@ -78,6 +78,16 @@ float UCPP_WeatherFetcher::GetWindSpeed() const
     return WindSpeed;
 }
 
+int UCPP_WeatherFetcher::GetId() const
+{
+    return Id;
+}
+
+FString UCPP_WeatherFetcher::GetMain() const
+{
+    return Main;
+}
+
 FString UCPP_WeatherFetcher::GetWeatherDescription() const
 {
     return WeatherDescription;
@@ -98,8 +108,9 @@ void UCPP_WeatherFetcher::OnResponseReceived(FHttpRequestPtr Request, FHttpRespo
         UE_LOG(LogTemp, Error, TEXT("HTTP Error: %d"), ResponseCode);
         return;
     }
-    
+
     FString ResponseContent = Response->GetContentAsString();
+    //UE_LOG(LogTemp, Warning, TEXT("Full JSON:\n%s"), *ResponseContent);
     
     // Парсинг JSON
     TSharedPtr<FJsonObject> JsonObject;
@@ -143,9 +154,9 @@ void UCPP_WeatherFetcher::OnResponseReceived(FHttpRequestPtr Request, FHttpRespo
     {
         TSharedPtr<FJsonObject> WeatherObj = (*WeatherArray)[0]->AsObject();
         WeatherDescription = WeatherObj->GetStringField(TEXT("description"));
-        FString Main = WeatherObj->GetStringField(TEXT("main"));
-        
-        UE_LOG(LogTemp, Log, TEXT("Weather: %s (%s)"), *Main, *WeatherDescription);
+        Main = WeatherObj->GetStringField(TEXT("main"));
+        Id = WeatherObj->GetNumberField(TEXT("id"));
+        UE_LOG(LogTemp, Log, TEXT("Weather: %s %d (%s)"), *Main, Id, *WeatherDescription);
     }
     
     // Извлекаем название города

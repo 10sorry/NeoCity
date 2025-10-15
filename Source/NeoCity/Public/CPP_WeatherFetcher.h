@@ -58,6 +58,12 @@ public:
     
     UFUNCTION(BlueprintPure, Category = "Weather|Data")
     float GetWindSpeed() const;
+
+	UFUNCTION(BlueprintPure, Category = "Weather|Data")
+	int GetId() const;
+
+	UFUNCTION(BlueprintPure, Category = "Weather|Data")
+	FString GetMain() const;
 	
     UFUNCTION(BlueprintPure, Category = "Weather|Data")
     FString GetWeatherDescription() const;
@@ -76,6 +82,8 @@ private:
 	float Pressure = 0.0f;
 	float WindSpeed = 0.0f;
 	FString WeatherDescription;
+	FString Main;
+	int Id;
 	FString CityName;
     
 	// Callback
