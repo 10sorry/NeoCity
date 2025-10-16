@@ -93,6 +93,32 @@ FString UCPP_WeatherFetcher::GetWeatherDescription() const
     return WeatherDescription;
 }
 
+FText UCPP_WeatherFetcher::GetFormattedWeatherText() const
+{
+    FString TempUnit = (Units == TEXT("metric")) ? TEXT("°C") :
+                      (Units == TEXT("imperial")) ? TEXT("°F") : TEXT("K");
+
+    FString Formatted =
+        FString::Printf(TEXT(
+            "🌆 Город: %s\n"
+            "🌤 Погода: %s\n"
+            "🌡 Температура: %.1f%s (Ощущается как %.1f%s)\n"
+            "💧 Влажность: %.0f%%\n"
+            "🌬 Ветер: %.1f м/с\n"
+            "📊 Давление: %.0f гПа"
+        ),
+        *CityName,
+        *WeatherDescription,
+        Temperature, *TempUnit,
+        FeelsLike, *TempUnit,
+        Humidity,
+        WindSpeed,
+        Pressure
+    );
+
+    return FText::FromString(Formatted);
+}
+
 void UCPP_WeatherFetcher::OnResponseReceived(FHttpRequestPtr Request, FHttpResponsePtr Response, bool bWasSuccessful)
 {
 	 if (!bWasSuccessful || !Response.IsValid())

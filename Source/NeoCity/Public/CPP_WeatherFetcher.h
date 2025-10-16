@@ -68,6 +68,9 @@ public:
     UFUNCTION(BlueprintPure, Category = "Weather|Data")
     FString GetWeatherDescription() const;
 
+	UFUNCTION(BlueprintPure, Category = "Weather")
+	FText GetFormattedWeatherText() const;
+
 	
 private:
 	FString City = "Penza";
